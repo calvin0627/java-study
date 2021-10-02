@@ -12,6 +12,8 @@
 물론 최근에는 도커와 같은 컨테이너 기술을 통해 가벼운 Cost로 환경이나 라이브러리의 제약없이 프로그램을 돌릴 수 있으며, Python, Go, C# 등의 언어에서 가비지 컬렉션 기능을 만나볼 수 있다. 지금 보기에는 JVM이 크게 매력적인 기술은 아닐지라도, 현재까지도 Java는 많은 IT기업에서 사용하는 주요 언어 중 하나이다.
 ```
 
+<br><br><br>
+
 ## <strong>1.2 자바의 컴파일부터 실행까지
 
 1. 개발자가 자바 소스코드(.java) 작성
@@ -19,17 +21,25 @@
 3. 컴파일된 바이트 코드를 JVM의 클래스로더(Class Loader)로 전달
 4. 클래스 로더는 동적로딩을 통해 필요한 클래스들을 로딩 및 링크하여 런타임 데이터 영역, 즉 JVM의 메모리에 올림.
 5. 실행엔진(Execution Engine)이 JVM 메모리에 올라온 바이트코드들을 명령어 단위로 하나씩 가져와 기계어로 번역되어 실행한다. 이때 실행 방법은 인터프리터 방식과 JIT 컴파일러 방식이 있다. 인터프리터는 바이트코드를 한줄씩 읽고 바로 기계어로 변환 후 실행한다.
+   
+<br><br><br>
 
 ## <strong>1.4 바이트코드란?
 >바이트코드(Bytecode, portable code, p-code)는 특정 하드웨어가 아닌 가상 컴퓨터에서 돌아가는 실행 프로그램을 위한 이진 표현법이다. 하드웨어가 아닌 소프트웨어에 의해 처리되기 때문에, 보통 기계어보다 더 추상적이다. -_Wikipedia_
 
 바이트코드는 쉽게말해서 JVM이 이해할 수 있는 언어이다.
+
+<br><br><br>
+
 ## <strong>1.5 JIT 컴파일러(Just-In Time Compiler)란?
 자바는 OS 종속성을 없애기 위해 JVM이 이해할 수 있는 언어인 바이트코드로 변환하는 과정이 추가되었다. 이 때문에, 기존의 인터프리터 방식에서는 자바 프로그램의 실행 속도가 현저히 떨어진다.
 
 인터프리터의 단점을 보완하기 위해 JIT 컴파일러 방식이 도입되었는데, 런타임 과정에서 실행할 바이트 코드 전체를 컴파일하여 바이너리 코드로 변경하고 
 
 이후에는 해당 메서드를 더 이상 인터프리팅 하지 않고, 바이너리 코드로 직접 실행하는 방식이다. 하나씩 인터프리팅하여 실행하는 것이 아니라 바이트 코드 전체가 컴파일된 바이너리 코드를 실행하는 것이기 때문에 전체적인 실행속도는 인터프리팅 방식보다 빠르다.
+
+<br><br><br>
+
 ## <strong>1.6 JVM 구성 요소
 
 JVM은 Class Loader, Execution Engine, Interpreter, Garbage Collector로 이루어져있다.
@@ -42,47 +52,19 @@ JVM은 Class Loader, Execution Engine, Interpreter, Garbage Collector로 이루�
 
 * Garbage Collector
 
+<br><br><br>
+
 ## <strong>1.7 JDK와 JRE의 차이
 `JRE(Java Runtime Environment`는 HelloWorld.class 파일을 JVM으로 로딩시키는 역할을 한다. JVM은 바이트코드 파일을 해석해 실행할 수 있는 상태로 만든다. 한마디로 자바 프로그램이 실행되기 위한 최소환경이다. 자바 프로그램을 개발하지 않고 실행만 시킬 거라면 JRE만 있으면 된다.
 
 `JDK(Java Developement Kit)`은 자바 환경에서 돌아가는 프로그램을 개발하는 데 필요한 툴들을 모아놓은 소프트웨어 패키지이다. 그러므로 Java 프로그래밍을 하기 위해서는 JDK를 설치해야 한다. 즉, 자바 프로그램을 만들고 실행시키기 위한 패키지이므로 JDK안에는 JRE가 포함되어 있다.
 
-
-
-# <strong>2. Java 데이터 타입, 변수, 배열
-## 1. 데이터 타입
-### 기본형
-
-*  숫자형  
-   * 정수형 - byte, short, int ,long
-      * 10진수, 16진수, 8진수, 2진수
-      * 기본값 : int 
-
-   * 실수형 - float, double
-      * 실수 부분과 지수 부분으로 나뉜다
-      * 기본값 : double 
-
-* 논리형 - boolean
-    * true / false (논리형 리터럴) 
-
-* 문자형 - char
-    * 문자 / 한자 
-    * 유니코드 / escape 코드
-    * 'a' (작은따옴표 사용)
-
-* 문자열 - String (대문자 주의)
-    * 문자열
-    * -"string" (큰따옴표 사용)
-
-### 참조형
-* 위에 해당하지 않는 모든 데이터형, 대표적으로 클래스(class), 배열(Array) , 인터페이스(Interface) 등이 해당한다.
-
-## 2. 변수
-
-# <strong>3. Java 연산자
+<br><br><br>
 
 ## Question
 어떤 이유에서 아직도 Java가 널리 쓰이는 것인가? 단순히 이전부터 많이 써왔기 때문에?
+
+<br><br><br>
 
 ## Reference
 
@@ -95,7 +77,5 @@ https://velog.io/@woo00oo/%EC%9E%90%EB%B0%94-%EC%BB%B4%ED%8C%8C%EC%9D%BC-%EA%B3%
 
 https://www.itworld.co.kr/news/110837
 
-### Java 데이터 타입, 변수, 배열
-https://codingisgame.tistory.com/1
 
 
