@@ -67,8 +67,6 @@ JVM은 Class Loader, Execution Engine, Interpreter, Garbage Collector로 이루�
 <br><br><br>
 
 ## Reference
-
-### JVM
 https://ko.wikipedia.org/wiki/%EC%9E%90%EB%B0%94_%EA%B0%80%EC%83%81_%EB%A8%B8%EC%8B%A0
 
 https://ko.wikipedia.org/wiki/%EB%B0%94%EC%9D%B4%ED%8A%B8%EC%BD%94%EB%93%9C
