@@ -85,6 +85,7 @@ JRE는 JDK를 사용하여 작성된 Java코드를 JVM에서 실행에 필요한
     - 분석: 클래스 상수 풀 속의 심볼릭 레퍼런스를 다이렉트 레퍼런스로 변경
   - `초기화(Initialization)`: 클래스 변수들 값 초기화. ex) static
 
+JVM의 자세한 동작은 아래에 기술하였다.
 
 >우선은 `Lion.java` 을 우리가 코딩하여 만들었다고 치자.
 >
@@ -92,7 +93,7 @@ JRE는 JDK를 사용하여 작성된 Java코드를 JVM에서 실행에 필요한
 >
 >여기서부터 JVM의 역할이 시작된다. (여기서 부터 언급되는 것들은 전부 JVM안에서 이루어지고 있는 일들임.)
 >
->### 1. JVM-Loading
+>### JVM-Loading
 >
 >우선 Lion.class가 Class Loader에 들어간다. 그러면 Class Loader는 binary data를 만들어 Method Area에 저장한다. binary data에는 
 >
@@ -104,7 +105,7 @@ JRE는 JDK를 사용하여 작성된 Java코드를 JVM에서 실행에 필요한
 >
 >이후에 JVM은 곧바로 이 파일을 표현하는 Class type의 객체를 만들어 heap memory에 저장한다. 이 Class type은 java.lang.package에 정의된 것이다.
 >
->### 2. JVM-Linking
+>### JVM-Linking
 >
 >Linking에는 3가지 과정이 있다.
 >
@@ -118,7 +119,7 @@ JRE는 JDK를 사용하여 작성된 Java코드를 JVM에서 실행에 필요한
 >
 >Resolution. Verification이 끝나면 Lion.class의 변수나 함수같은 components가 symbol로 변환되어 string으로 run-time constant pool에 저장된다. 이러한 symbolic reference를 .가지고 method area를 searching하여 referenced 된 것으로 교체하는 작업이다. 사실 Resolution에 관한 부분은 명확하지 않다.
 >
->### 3. JVM-Initialization
+>### JVM-Initialization
 >
 >class 안에서와 class hierarchy에 대해서나 top bottom 순서로 static 변수들을 모두 할당하는 작업이다.
 
@@ -184,14 +185,14 @@ JRE는 JDK를 사용하여 작성된 Java코드를 JVM에서 실행에 필요한
 
 ## 1.4 JIT(Just In Time) Compiler
 
-### 인터프리터 방식
+### 1.4.1 인터프리터 방식
  클래스 파일을 로드하고 각 개별 바이트 코드의 시맨틱을 판별하며 계산 수행. 해석 중 추가 프로세서 및 메모리 사용이 들게 되므로 오버헤드 생긴다. 
-### JIT Compiler
+### 1.4.2 JIT Compiler
 런타임시 동적으로 바이트 코드를 컴파일하여 애플리케이션의 성능을 향상시키는 런타임 환경의 컴포넌트,
-### JIT in JVM
+### 1.4.3 JIT in JVM
 런타임 시 바이트 코드를 원시 시스템 코드로 컴파일하여 Java 프로그램의 성능을 향상시킨다. 메소드 영역에 있는 코드 캐시(Code Cache) 공간에 컴파일된 코드 저장하여 캐싱한다
 
-### 컴파일 정책
+### 1.4.4 컴파일 정책
 - 컴파일 시 오버헤드가 발생하게 되므로, 모든 메소드를 컴파일하는 것은 비효율적
 - JVM은 각 메소드에 대해 사전에 정의된 컴파일 임계값에서 시작하여, 해당 메소드가 호출될 때마다 감소되는 호출 개수를 관리하고 임계값에 도달할 시 컴파일 시킨다. 따라서 자주 사용되는 메소드는 JVM 시작 후 곧 컴파일 되고, 빈도가 낮은 메소드는 나중에 컴파일 되거나, 컴파일 되지 않게 된다
  - 카운터 종류
@@ -207,7 +208,7 @@ Java에서는 GC를 지원하는데, 그렇다고 명시적으로 메모리 해�
 
 `stop-the-world`: GC(garbage collection)을 위해 JVM이 application 실행을 멈추는 것이다. 만약 여러개의 스레드가 작업을 하고 있었다면, GC를 실행할 스레드를 제외하고는 전부 멈춘 상태가 된다.
 
-### Garbage Collection 알고리즘 선택의 중요성
+### 1.5.1 Garbage Collection 알고리즘 선택의 중요성
 
 Oracle 공식 문서에 따르면 GC는 4가지 작업을 통해 메모리 관리를 한다고 한다.
 
@@ -218,7 +219,7 @@ Oracle 공식 문서에 따르면 GC는 4가지 작업을 통해 메모리 관�
 
 
 
-### Garbage collector의 성능 향상을 위한 요소
+### 1.5.2 Garbage collector의 성능 향상을 위한 요소
 
 1. generational scavenging
 
@@ -239,13 +240,13 @@ Oracle 공식 문서에 따르면 GC는 4가지 작업을 통해 메모리 관�
 
    
 
-### Garbage collection 선택의 중요성
+### 1.5.3 Garbage collection 선택의 중요성
 
 <img src="https://docs.oracle.com/en/java/javase/17/gctuning/img/jsgct_dt_005_gph_pc_vs_tp.png">
 
 위의 그림에서, 1% GC의 의미란 application 실행시간중 1%를 garbage collection에 할당한다는 것이다. 눈으로 보면 알 수 있듯이, 프로세서의 수가 늘어날수록 엄청난 성능의 차이를 보인다. 반대로 보면, garbage collector의 조그만한 성능 향상이 앱 실행 시간에 큰 영향을 끼칠 수 있으므로 아주 중요한 이슈이다.
 
-### Garbage Collection 알고리즘의 종류
+### 1.5.4 Garbage Collection 알고리즘의 종류
 
 1. Serial Collector
 
@@ -265,7 +266,7 @@ Oracle 공식 문서에 따르면 GC는 4가지 작업을 통해 메모리 관�
 
    
 
-### Generational Garbage Collection
+### 1.5.5 Generational Garbage Collection
 
 위에서 언급한 성능 향상을 위한 요소중 generational scavenging을 이용한 알고리즘이다. The Z Garbage Collector를 제외한 모든 Collector가 Generational Garbage Collection이다. 
 
@@ -301,7 +302,7 @@ Old 영역에서의 GC는 알고리즘 별로 다르다.
 
 
 
-### JVM GC 디폴트 값
+### 1.5.6 JVM GC 디폴트 값
 
 * Garbage-First (G1) Collector
 * GC thread의 수는 maximum heap size 와 프로세서 수에 달려있다.
@@ -310,7 +311,7 @@ Old 영역에서의 GC는 알고리즘 별로 다르다.
 
 
 
-### Garbage collection 성능의 두 요소
+### 1.5.7 Garbage collection 성능의 두 요소
 
 #### 1. physical memory size(Total heap size)
 
